@@ -1,6 +1,4 @@
-import { Controller, All, Req, Res, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
+import { Controller, All, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import axios, { AxiosRequestConfig } from 'axios';
 
@@ -47,7 +45,6 @@ export class ProxyController {
   }
 
   @All('/event/*path')
-  @UseGuards(JwtAuthGuard, RolesGuard)
   async proxyEvent(@Req() req: Request, @Res() res: Response) {
     try {
       const targetUrl = `http://localhost:3002${req.originalUrl}`;
