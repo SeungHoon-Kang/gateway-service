@@ -4,13 +4,15 @@ import { HttpModule } from '@nestjs/axios';
 import { ProxyController } from './proxy/proxy.controller';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { join } from 'path';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(__dirname, '../.env'), // .env가 gateway-service 루트에 있으므로!
+      envFilePath: join(__dirname, '../.env'),
       isGlobal: true,
     }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     HttpModule,
   ],
   controllers: [ProxyController],
